@@ -1,4 +1,4 @@
-package tobyspring.hellospring;
+package tobyspring.hellospring.payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -50,7 +50,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "tobyspring.hellospring.Payment{" +
+        return "tobyspring.hellospring.payment.Payment{" +
                 "orderId=" + orderId +
                 ", currency='" + currency + '\'' +
                 ", foreignCurrencyAmount=" + foreignCurrencyAmount +
