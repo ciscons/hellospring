@@ -1,3 +1,5 @@
+package tobyspring.hellospring;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;

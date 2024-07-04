@@ -1,3 +1,5 @@
+package tobyspring.hellospring;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
