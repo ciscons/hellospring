@@ -1,5 +1,6 @@
 package tobyspring.hellospring;
 
+import org.springframework.cache.Cache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,20 +12,12 @@ public class ObjectFactory {
     }
 
     @Bean
-    public OrderService orderService() {
-        return new OrderService(exRateProvider());
+    public ExRateProvider cachedExRateProvider() {
+        return new CachedExRateProvider(exRateProvider());
     }
-    
+
     @Bean
     public ExRateProvider exRateProvider() {
         return new WebApiExRateProvider();
-    }
-}
-
-class OrderService {
-    ExRateProvider exRateProvider;
-
-    public OrderService(ExRateProvider exRateProvider) {
-        this.exRateProvider = exRateProvider;
     }
 }
