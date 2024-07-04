@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class ObjectFactory {
     @Bean
     public PaymentService paymentService() {
-        return new PaymentService(exRateProvider());
+        return new PaymentService(cachedExRateProvider());
     }
 
     @Bean
