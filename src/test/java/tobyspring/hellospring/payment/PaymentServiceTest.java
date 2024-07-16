@@ -30,7 +30,8 @@ class PaymentServiceTest {
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 
         // 환율정보 가져온다 -> null이 아닌 값이면 잘 가져다 넣었다고 본다
-        assertThat(payment.getExRate()).isEqualTo(exRate);
-        assertThat(payment.getConvertedAmount()).isEqualTo(convertedAmount);
+        // BigDecimal은 금액 계산에 좋지만, isEqualTo로 비교하는 것은 옳지않다. 소수점 이하까지 사용해야 하는 경우 결과가 다르게 나올 수 있음
+        assertThat(payment.getExRate()).isEqualByComparingTo(exRate);
+        assertThat(payment.getConvertedAmount()).isEqualByComparingTo(convertedAmount);
     }
 }
