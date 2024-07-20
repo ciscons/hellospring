@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class ExRateProviderStub implements ExRateProvider {
+    // 환율 정보를 미리 가지고 있는다
     private BigDecimal exRate;
 
     public BigDecimal getExRate() {

@@ -11,6 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PaymentServiceTest {
 
+    // Spring Container Test보다 속도가 더 빠르다.
+
     @Test
     @DisplayName("prepare 메소드가 요구사항 3가지를 잘 충족했는지 검증")
     void convertedAmount() throws IOException {
