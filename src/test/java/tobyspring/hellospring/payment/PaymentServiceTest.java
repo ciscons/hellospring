@@ -35,7 +35,7 @@ class PaymentServiceTest {
 
     @Test
     @DisplayName("환율이 30분동안 유지되는가")
-    void validUntil() throws IOException {
+    void validUntil()  {
         PaymentService paymentService = new PaymentService(new ExRateProviderStub(valueOf(1_000)), clock);
 
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);

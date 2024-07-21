@@ -27,7 +27,7 @@ public class PaymentServiceSpringTest {
 
     @Test
     @DisplayName("spring DI를 통해 테스트를 수행한다.")
-    void convertedAmount() throws IOException {
+    void convertedAmount()  {
         /*
         Spring Container Test
         ContextConfiguration 으로 테스트를 실행할 때 TestObject 클래스의 구성정보를 읽은 다음에 이걸 가지고 spring container를 생성
@@ -54,7 +54,7 @@ public class PaymentServiceSpringTest {
 
     @Test
     @DisplayName("환율이 30분동안 유지되는가")
-    void validUntil() throws IOException {
+    void validUntil()  {
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 
         // vaild until의 prepare() 30분 뒤로 설정됐는가?
