@@ -2,6 +2,10 @@ package tobyspring.hellospring.exrate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tobyspring.hellospring.api.ApiExecutor;
+import tobyspring.hellospring.api.ErApiExRateExtrator;
+import tobyspring.hellospring.api.ExRateExtractor;
+import tobyspring.hellospring.api.SimpleApiExecutor;
 import tobyspring.hellospring.payment.ExRateProvider;
 
 import java.io.BufferedReader;
@@ -18,10 +22,10 @@ public class WebApiExRateProvider implements ExRateProvider {
     public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
 
-        return runApiForExRate(url);
+        return runApiForExRate(url, new SimpleApiExecutor(), new ErApiExRateExtrator());
     }
 
-    private static BigDecimal runApiForExRate(String url) {
+    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
         URI uri;
         try {
             uri = new URI(url);
@@ -31,32 +35,15 @@ public class WebApiExRateProvider implements ExRateProvider {
 
         String response;
         try {
-            response = executeApi(uri);
+            response = apiExecutor.execute(uri);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            return extractExRate(response);
+            return exRateExtractor.extract(response);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static BigDecimal extractExRate(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ExRateData data = mapper.readValue(response, ExRateData.class);
-        return data.rates().get("KRW");
-    }
-
-    private static String executeApi(URI uri) throws IOException {
-        String response;
-        HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-
-        // finally를 쓰지 않아도 AutoClosable interface로 구현된 BufferedReader는 try 블록을 빠져나가기 전에 항상 close를 해준다.
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            response = br.lines().collect(Collectors.joining());
-        }
-        return response;
     }
 }
